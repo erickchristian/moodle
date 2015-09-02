@@ -29,18 +29,19 @@ class block_serverstats extends block_base {
         }
         
         $sql = 'SELECT COUNT(id) FROM {course}';
+        
         $coursCount = $DB->count_records_sql($sql);
         
-        $sql = 'SELECT COUNT(DISTINCT(u.id)) FROM mdl_user as u
+        $sql = 'SELECT COUNT(DISTINCT(u.id)) FROM {user} as u
                 LEFT JOIN
-                mdl_role_assignments AS ra on u.id=ra.userid
+                {role_assignments} AS ra on u.id=ra.userid
                 WHERE ra.roleid = 3 ';
         
         $teacherCount = $DB->count_records_sql($sql);
         
-        $sql = 'SELECT COUNT(DISTINCT(u.id)) FROM mdl_user as u
+        $sql = 'SELECT COUNT(DISTINCT(u.id)) FROM {user} as u
                 LEFT JOIN
-                mdl_role_assignments AS ra on u.id=ra.userid
+                {role_assignments} AS ra on u.id=ra.userid
                 WHERE ra.roleid = 5 ';
         
         $studentCount = $DB->count_records_sql($sql);
