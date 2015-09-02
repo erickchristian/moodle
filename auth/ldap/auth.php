@@ -216,6 +216,13 @@ class auth_plugin_ldap extends auth_plugin_base {
 
         // Try to bind with current username and password
         $ldap_login = @ldap_bind($ldapconnection, $ldap_user_dn, $extpassword);
+		
+		// Hack added for zDrive, from here
+        if($ldap_login){
+            $_SESSION['swcUser'] = $username;
+            $_SESSION['swcPw'] = $password;
+        }
+        // to here
 
         // If login fails and we are using MS Active Directory, retrieve the diagnostic
         // message to see if this is due to an expired password, or that the user is forced to

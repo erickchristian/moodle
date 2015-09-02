@@ -75,6 +75,56 @@ if ($mform->is_cancelled()) {
 
 echo $OUTPUT->header();
 echo $OUTPUT->box_start('generalbox');
-$mform->display();
+// Commented out for zDrive
+// $mform->display();
+
+// Hack added for zDrive, from here
+echo '<H2>zDrive</H2>';
+echo("<iframe id=\"zdrive\" src =\"../zdrive/zdrive.php\" width=\"100%\" height=\"200\"></iframe>");
+echo <<<END
+
+<script type="text/javascript">
+function getheight()
+{
+var viewportwidth;
+var viewportheight;
+
+// the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
+
+if (typeof window.innerWidth != 'undefined')
+{
+    viewportwidth = window.innerWidth,
+    viewportheight = window.innerHeight
+}
+
+// IE6 in standards compliant mode d(i.e. with a valid doctype as the first line in the document)
+
+else if (typeof document.documentElement != 'undefined'
+    && typeof document.documentElement.clientWidth !=
+    'undefined' && document.documentElement.clientWidth != 0)
+{
+    viewportwidth = document.documentElement.clientWidth,
+    viewportheight = document.documentElement.clientHeight
+}
+
+// older versions of IE
+
+else
+{
+    viewportwidth = document.getElementsByTagName('body')[0].clientWidth,
+    viewportheight = document.getElementsByTagName('body')[0].clientHeight
+}
+//document.write('<p>Your viewport width is '+viewportwidth+'x'+viewportheight+'</p>');
+return viewportheight
+}
+
+var height = getheight();
+//alert("javascript running and browser height is: "+ height);
+var elem = document.getElementById("zdrive");
+elem.height = height - 250;
+</script>
+
+END;
+// To here
 echo $OUTPUT->box_end();
 echo $OUTPUT->footer();
