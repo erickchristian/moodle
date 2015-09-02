@@ -1006,6 +1006,10 @@ function page_get_doc_link_path(moodle_page $page) {
  * @return boolean
  */
 function validate_email($address) {
+    // if statement to disable email address as required field
+    if ($address == '') {
+        return 1;
+    }
 
     return (preg_match('#^[-!\#$%&\'*+\\/0-9=?A-Z^_`a-z{|}~]+'.
                  '(\.[-!\#$%&\'*+\\/0-9=?A-Z^_`a-z{|}~]+)*'.

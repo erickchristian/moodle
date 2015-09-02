@@ -214,7 +214,7 @@ function useredit_shared_definition(&$mform, $editoroptions = null, $filemanager
         $mform->addElement('static', 'emailpending', get_string('email'), $notice);
     } else {
         $mform->addElement('text', 'email', get_string('email'), 'maxlength="100" size="30"');
-        $mform->addRule('email', $strrequired, 'required', null, 'client');
+        // $mform->addRule('email', $strrequired, 'required', null, 'client');
         $mform->setType('email', PARAM_RAW_TRIMMED);
     }
 

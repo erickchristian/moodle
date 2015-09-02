@@ -750,6 +750,13 @@ class PHPMailer
      */
     protected function addAnAddress($kind, $address, $name = '')
     {
+        
+        // Hack to disable email address as required field, from here
+        if($address == null or $address == '') {
+            return false;
+        }
+        // To here
+        
         if (!preg_match('/^(to|cc|bcc|Reply-To)$/', $kind)) {
             $this->setError($this->lang('Invalid recipient array') . ': ' . $kind);
             if ($this->exceptions) {
@@ -946,7 +953,9 @@ class PHPMailer
         try {
             $this->mailHeader = "";
             if ((count($this->to) + count($this->cc) + count($this->bcc)) < 1) {
-                throw new phpmailerException($this->lang('provide_address'), self::STOP_CRITICAL);
+                // Edited to disable email address as required field
+                return true;
+                // throw new phpmailerException($this->lang('provide_address'), self::STOP_CRITICAL);
             }
 
             // Set whether the message is multipart/alternative

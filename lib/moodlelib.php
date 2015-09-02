@@ -3471,7 +3471,7 @@ function user_not_fully_set_up($user) {
     if (isguestuser($user)) {
         return false;
     }
-    return (empty($user->firstname) or empty($user->lastname) or empty($user->email) or over_bounce_threshold($user));
+    return (empty($user->firstname) or empty($user->lastname) or over_bounce_threshold($user));
 }
 
 /**
