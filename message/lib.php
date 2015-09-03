@@ -1095,7 +1095,9 @@ function message_unblock_contact($contactid) {
  * @return bool
  */
 function message_block_contact($contactid) {
-    return message_add_contact($contactid, 1);
+    // Altered to prevent students from blocking teachers in messaging
+    // return message_add_contact($contactid, 1);
+    return message_add_contact($contactid, 0);
 }
 
 /**

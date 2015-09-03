@@ -155,12 +155,15 @@ if ($unblockcontact and confirm_sesskey()) {
 //was a message sent? Do NOT allow someone looking at someone else's messages to send them.
 $messageerror = null;
 if ($currentuser && !empty($user2) && has_capability('moodle/site:sendmessage', $systemcontext)) {
-    // Check that the user is not blocking us!!
-    if ($contact = $DB->get_record('message_contacts', array('userid' => $user2->id, 'contactid' => $user1->id))) {
-        if ($contact->blocked and !has_capability('moodle/site:readallmessages', $systemcontext)) {
-            $messageerror = get_string('userisblockingyou', 'message');
-        }
-    }
+/**
+ *  Commented out to prevent students from blocking teachers in messaging
+ *  // Check that the user is not blocking us!!
+ *  if ($contact = $DB->get_record('message_contacts', array('userid' => $user2->id, 'contactid' => $user1->id))) {
+ *      if ($contact->blocked and !has_capability('moodle/site:readallmessages', $systemcontext)) {
+ *          $messageerror = get_string('userisblockingyou', 'message');
+ *      }
+ *  }
+ */
     $userpreferences = get_user_preferences(NULL, NULL, $user2->id);
 
     if (!empty($userpreferences['message_blocknoncontacts'])) {  // User is blocking non-contacts
