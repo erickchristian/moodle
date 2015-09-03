@@ -25,6 +25,7 @@
 require_once('../config.php');
 require_once('lib.php');
 require_once('send_form.php');
+include('emailfilter.php'); // to disable student to student messaging
 
 require_login(0, false);
 
@@ -65,6 +66,8 @@ $advancedsearch = optional_param('advanced', 0, PARAM_INT);
 $page = optional_param('page', 0, PARAM_INT);
 
 $url = new moodle_url('/message/index.php', array('user1' => $user1id));
+
+gfpsemailcheck($user1id,$user2id); // to disable student to student messaging
 
 if ($user2id !== 0) {
     $url->param('user2', $user2id);
