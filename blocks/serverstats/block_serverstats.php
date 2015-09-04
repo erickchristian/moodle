@@ -1,49 +1,30 @@
 <?php
 
-global $debug, $debuglevel2;
-
-//Global Var
-$debug;
-$debuglevel2;
-
-
-
-if (isset($debuglevel2)){
-	echo '<pre><code>';
-	error_reporting(E_ALL);
-	ini_set('display_errors', '1');
-}
-
 class block_serverstats extends block_base {
     public function init() {
         $this->title = get_string('serverstats', 'block_serverstats');
     }
-    // The PHP tag and the curly bracket for the class definition 
-    // will only be closed after there is another function added in the next section.
 
     public function get_content() {
-        global $COURSE, $CFG, $USER, $DB, $OUTPUT, $PAGE;
+        global $DB;
              
         if ($this->content !== null) {
             return $this->content;
         }
         
         $sql = 'SELECT COUNT(id) FROM {course}';
-        
         $coursCount = $DB->count_records_sql($sql);
         
         $sql = 'SELECT COUNT(DISTINCT(u.id)) FROM {user} as u
                 LEFT JOIN
                 {role_assignments} AS ra on u.id=ra.userid
                 WHERE ra.roleid = 3 ';
-        
         $teacherCount = $DB->count_records_sql($sql);
         
         $sql = 'SELECT COUNT(DISTINCT(u.id)) FROM {user} as u
                 LEFT JOIN
                 {role_assignments} AS ra on u.id=ra.userid
                 WHERE ra.roleid = 5 ';
-        
         $studentCount = $DB->count_records_sql($sql);
         
         $ut = $this->linuxUptime();
@@ -73,7 +54,5 @@ class block_serverstats extends block_base {
         $sec = sprintf( "%2d", ($ut % (3600*24) % 3600)%60  );
         return array( $days, $hours, $min, $sec );
     }
-
-}   // Here's the closing curly bracket for the class definition
-    // and here's the closing PHP tag from the section above.
+}
 ?>
